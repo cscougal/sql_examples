@@ -35,7 +35,7 @@ SELECT
 group by poly.id)
 
 -- Very useful code(equivalent to point to raster within ArcGIS) except this can run on millions of points within seconds
--- essentially it sums a field within a point dataset(i.e ping \ time)  where it intersects with a polygon (i.e fishnet grid)
+-- essentially it sums a field for all points within a dataset(i.e ping time) where it intersects with a polygon (i.e fishnet grid)
 
 
 SELECT c.gid
