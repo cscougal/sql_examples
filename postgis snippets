@@ -38,4 +38,12 @@ group by poly.id)
 -- essentially it sums a field within a point dataset(i.e ping \ time)  where it intersects with a polygon (i.e fishnet grid)
 
 
+SELECT c.gid
+FROM geo_data.vms c
+WHERE EXISTS(SELECT c2.gid
+FROM geo_data.vms2 c2
+WHERE c2.gid = c.gid)
+
+-- This code gets a unique vessel ids when present within both tables
+
 
