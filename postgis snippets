@@ -1,3 +1,4 @@
+
 create table geo_data.subdivide_test as (
 
 select st_subdivide(geom) as geom
@@ -5,6 +6,9 @@ select st_subdivide(geom) as geom
 from geo_data.management_areas a
 
 where a.id=1)
+
+-- Code above takes a polygon geometry and subdivides into smaller regions
+-- Very useful for speeding up spatial operations due to spatial indexing
 
 
 
@@ -16,21 +20,11 @@ from geo_data.sst_raster as myraster , geo_data.subdivide_test as poly
 
 where st_intersects (myraster.rast, poly.geom))
 
-
+--This code clips a raster by a polygon geometry based on intersecting geoms
+-- Much faster using ST_Union on each individaul geom , than running in one go
 
 
 	
-select st_multi(ST_Intersection(A.geom, B.st_subdivide)) AS geom,a.id,b.geoname
-
-from geo_data.rast2poly a, geo_data.sub_managment_area b
-
-WHERE ST_Intersects(A.geom , B.st_subdivide) 
-
-) As foo)
-
-
-
-
 create table geo_data.agg_grid as(
 
 SELECT 
@@ -40,7 +34,8 @@ SELECT
 	 
 group by poly.id)
 
-
+-- Very useful code(equivalent to point to raster within ArcGIS) except this can run on millions of points within seconds
+-- essentially it sums a field within a point dataset(i.e ping \ time)  where it intersects with a polygon (i.e fishnet grid)
 
 
 
