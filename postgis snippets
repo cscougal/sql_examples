@@ -32,7 +32,7 @@ SELECT
  WHERE
      ST_Intersects(point.geom, poly.geom)
 	 
-group by poly.id)
+group by poly.id,poly.geom)
 
 -- Very useful code(equivalent to point to raster within ArcGIS) except this can run on millions of points within seconds
 -- essentially it sums a field for all points within a dataset(i.e ping time) where it intersects with a polygon (i.e fishnet grid)
